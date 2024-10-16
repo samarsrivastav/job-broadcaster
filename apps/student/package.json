@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@repo/ui": "*",
+    "@repo/db":"*",
     "next": "14.2.6",
+    "next-auth": "^4.24.8",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@repo/db":"*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
