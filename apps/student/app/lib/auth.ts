@@ -1,35 +1,60 @@
-import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "@repo/db/client"
+import bcrypt from "bcrypt";
 const authOptions = {
-  
+
     providers: [
-      CredentialsProvider({
-          name: "Credentials",
-          credentials: {
-            username: { label: "Username", type: "text", placeholder: "username" },
-            password: { label: "Password", type: "password" }
-          },
-          async authorize(credentials:any) {
-            // Add logic here to look up the user from the credentials supplied
-            const user = await prisma.student.findFirst({
-                where:{
-                    username
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                username: { label: "Username", type: "text", placeholder: "username", required: true },
+                password: { label: "Password", type: "password", placeholder: "password", required: true }
+            },
+            async authorize(credentials: any) {
+                console.log("Credentials received:", credentials);
+                const userExist = await prisma.student.findFirst({
+                    where: {
+                        username: credentials.username
+                    }
+                })
+
+                if (!userExist) {
+                    return null
                 }
-            })
-      
-            if (user) {
-              // Any object returned will be saved in `user` property of the JWT
-              return user
-            } else {
-              // If you return null then an error will be displayed advising the user to check their details.
-              return null
-      
-              // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+                // const validate = await bcrypt.compare(credentials.password, userExist.password)
+                if (userExist.password!=credentials.password) {
+                    return null
+                }
+                return {
+                    id: userExist.id.toString(),
+                    username: userExist.username,
+                    cgpa: userExist.cgpa,
+                    name: userExist.name,
+                    college: userExist.collegeId
+                }
             }
-          }
-        })
+        }),
     ],
-  }
-  
-  export default authOptions
+    secret: process.env.JWT_SECRET,
+    callbacks: {
+        jwt: async ({ user, token }: any) => {
+            if (user) {
+                token.sub = user.id;
+                token.username=user.username
+            }
+            return token;
+        }, 
+        session: async ({ token, session }: any) => {
+            if (token) {
+                session.userid = token.sub;
+                session.username = token.username; 
+            }
+            return session
+        }
+    },
+    pages:{
+        signIn:'/auth/signin'
+    }
+}
+
+export default authOptions

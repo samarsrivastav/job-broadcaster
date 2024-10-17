@@ -11,6 +11,7 @@ datasource db {
 model college{
   id  Int @id @default(autoincrement())
   name      String @unique
+  password String
   companies company[]
   students student[]
 }
@@ -26,6 +27,7 @@ model company{
 model student{
   id Int @id @default(autoincrement())
   username String @unique
+  password String
   name String 
   cgpa String
   collegeId Int
