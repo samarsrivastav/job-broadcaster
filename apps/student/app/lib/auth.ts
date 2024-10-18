@@ -41,6 +41,8 @@ const authOptions = {
             if (user) {
                 token.sub = user.id;
                 token.username=user.username
+                token.collegeId=user.college;
+                token.cgpa=user.cgpa;
             }
             return token;
         }, 
@@ -48,6 +50,8 @@ const authOptions = {
             if (token) {
                 session.userid = token.sub;
                 session.username = token.username; 
+                session.collegeId=token.collegeId;
+                session.cgpa=token.cgpa;
             }
             return session
         }

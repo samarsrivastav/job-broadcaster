@@ -31,5 +31,19 @@ model student{
   name String 
   cgpa String
   collegeId Int
+  verified Boolean? @default(false)
+  resume resume[]
   college college @relation(fields: [collegeId],references: [id])
+}
+model apply{
+  id Int @id @default(autoincrement())
+  collegeId String
+  studentId String
+  companyId String
+}
+model resume{
+  id Int @id @default(autoincrement())
+  studentId String 
+  student student @relation(fields: [studentId],references: [id])
+  resume Bytes
 }
