@@ -1,14 +1,13 @@
 "use client"
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function SignInPage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const router = useRouter()
     const session = useSession()
-
 
     return (
         <div>
@@ -18,20 +17,12 @@ export default function SignInPage() {
                 await signIn("credentials",{
                     username,
                     password,
-                    redirect:false
                 })
                 router.push("/")
             }} >
                 Login
             </button>
             <br />
-            <button type="button" onClick={async()=>{
-                await signOut()
-                router.push('/auth/signin')
-            }
-            }>
-                Logout
-            </button>
             <div>
                 {JSON.stringify(session)}
             </div>

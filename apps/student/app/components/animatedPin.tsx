@@ -1,6 +1,6 @@
 "use client";
 import { FaLocationArrow } from "react-icons/fa";
-import { PinContainer } from "../src/3d-pin";
+import { PinContainer } from "@repo/ui/3d-pin";
 interface AnimatedPinDemoProps {
     companyName: string;
     ctc: string;
@@ -26,7 +26,7 @@ export function AnimatedPinDemo({ companyName, ctc, cutoff, applyLink }: Animate
             />
           </div>
   
-          <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">Cutoff- {cutoff}</h1>
+          <h1 className="font-bold lg:text-2xl md:text-xl text-purple-50 line-clamp-1">Cutoff- {cutoff}</h1>
   
           <p
             className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
@@ -40,7 +40,7 @@ export function AnimatedPinDemo({ companyName, ctc, cutoff, applyLink }: Animate
   
           <div className="flex items-center justify-between mt-7 mb-3">
             <div className="flex justify-center items-center">
-              <p className="flex lg:text-xl md:text-xs text-sm text-purple">
+              <p className="flex lg:text-xl md:text-xs text-sm text-purple-50">
                 Apply
               </p>
               <FaLocationArrow className="ms-3" color="#CBACF9" />
