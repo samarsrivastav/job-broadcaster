@@ -1,17 +1,22 @@
-import Image from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
+
 import { getServerSession } from "next-auth";
 import authOptions from "./lib/auth";
 import {AnimatedPinDemo} from "@repo/ui/animatedPin"
 import getCompany from "./lib/getCompany";
+import { uploadResume } from "./lib/uploadResume";
+import { ResumeUpload } from "./components/resumeUpload";
+
 
 export default async function Home() {
   const session=await getServerSession(authOptions)
-  const college=await getCompany()
+  var college:any[]=[]
+  if(session){
+    college=await getCompany()
+  }
   return (
     <div className="user ">
       user-- 
+      
       <div className="text-red-950">
         {JSON.stringify(session)}
       </div>
@@ -24,6 +29,13 @@ export default async function Home() {
             <AnimatedPinDemo companyName={item.companyName} cutoff={item.cutoff} ctc={item.ctc} applyLink={item.link}/>
           )
         })}
+      </div>
+      <div>
+        
+      </div>
+      <div>
+        <ResumeUpload/>
+        
       </div>
     </div>
   );
