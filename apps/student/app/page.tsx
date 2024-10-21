@@ -29,9 +29,9 @@ export default async function Home() {
 
       </div>
       <div className="flex w-full h-full">
-        {college.map((item)=>{
+        {college.slice(0, 4).map((item)=>{
           return (
-            <AnimatedPinDemo companyName={item.companyName} cutoff={item.cutoff} ctc={item.ctc} applyLink={item.link}/>
+            <AnimatedPinDemo companyId={item.id} companyName={item.companyName} cutoff={item.cutoff} ctc={item.ctc} imgLink={item.link} />
           )
         })}
       </div>

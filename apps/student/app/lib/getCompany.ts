@@ -18,5 +18,17 @@ export default async function getCompany() {
         const cutoff=parseInt(item.cutoff,10)
         return cutoff<session.cgpa
     })
-    return company
+    const appliedCompanies = await prisma.apply.findMany({
+        where: {
+            studentId: session.userid,
+        }
+    });
+
+    const appliedCompanyIds = new Set(appliedCompanies.map(a => a.companyId));
+
+    const notAppliedCompanies = company.filter(c => {
+        return !appliedCompanyIds.has(c.id.toString());
+    });
+
+    return notAppliedCompanies;
 }
