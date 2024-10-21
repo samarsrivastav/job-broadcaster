@@ -2,6 +2,7 @@
 import { FaLocationArrow } from "react-icons/fa";
 import { PinContainer } from "@repo/ui/3d-pin";
 import apply from "../lib/apply";
+import { useRouter } from "next/navigation";
 interface AnimatedPinDemoProps {
     companyName: string;
     ctc: string;
@@ -10,10 +11,11 @@ interface AnimatedPinDemoProps {
     imgLink:string;
 }
 export function AnimatedPinDemo({ companyName, ctc, cutoff ,companyId,imgLink}: AnimatedPinDemoProps) {
+    const router=useRouter()
     return (
-      <div className="sm:h-[41rem] h-[32rem] lg:min-h-[32.5rem] flex items-center justify-center sm:w-[570px] w-[80vw]" onClick={async()=>{
-        apply(companyId)
-        console.log(companyId)
+      <div className="sm:h-[23rem] h-[22rem] flex items-center justify-center sm:w-[570px] w-[20vw]" onClick={async()=>{
+        await apply(companyId)
+        router.refresh()
       }}>
         <PinContainer title={companyName} >
           <div className="relative flex items-center justify-center sm:w-[570px] w-[80vw] overflow-hidden sm:h-[40vh] h-[30vh] lg:h-[30vh] mb-10">

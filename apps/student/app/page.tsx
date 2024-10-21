@@ -28,8 +28,8 @@ export default async function Home() {
       <div className="my-10">
 
       </div>
-      <div className="flex w-full h-full">
-        {college.slice(0, 4).map((item)=>{
+      <div className="grid grid-cols-2  h-full justify-center ">
+        {college.slice(0, 4).map((item)=>{ //need a max of 4 here.... rest will be there in a seperate page 
           return (
             <AnimatedPinDemo companyId={item.id} companyName={item.companyName} cutoff={item.cutoff} ctc={item.ctc} imgLink={item.link} />
           )
